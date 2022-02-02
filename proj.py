@@ -1,5 +1,3 @@
-
-
 usernames = {
     "anshul": 0,
     "sid": 1,
@@ -13,29 +11,28 @@ def ask_username():
 
 
 def ask_password():
-    return input("\nEnter your password: ")
+    return input("Enter your password: ")
 
 
 def sign_up():
     usernames[ask_username()] = len(details)
     details.append([ask_password(), 0])
-    print("\nAccount created successfully!")
+    print("Account created successfully!")
 
 
 def log_in():
     while True:
         usr = ask_username()
         try:
-            indx = usernames[usr]
-            if (ask_password() == details[indx][0]):
-                print("\nSuccessfully logged in.")
-                display(usr)
+            index = usernames[usr]
         except:
-            input("Username not found. Enter 1 to try again, or any other number to exit to the main menu: ")
-            if(input=="1"):
+            if input("Username not found. Enter 1 to try again, or any other number to exit to the main menu: ") == "1":
                 continue
             else:
                 break
+        if ask_password() == details[index][0]:
+            print("Successfully logged in.")
+            display(usr)
 
 
 def display(usr):
@@ -45,20 +42,19 @@ def display(usr):
 
 
 def transfer(usr, recipient):
-    indx = usernames[usr]
-    rcpIndx = usernames[recipient]
+    index = usernames[usr]
+    rcp_index = usernames[recipient]
     while True:
-        money = int(input("\nEnter how much you want to transfer: "))
-        if(money>details[indx][1]):
-            print("Insufficient balance.")
+        money = int(input("Enter how much you want to transfer: "))
+        if money > details[index][1]:
+            print("ERROR: Insufficient balance.")
             continue
         else:
-            details[indx][1] -= money
-            details[rcpIndx][1] += money
-            print("Transaction successful. ")
+            details[index][1] -= money
+            details[rcp_index][1] += money
+            print("Transaction successful!")
             display(usr)
             break
-    details[rcpIndx][1] #recipient's balance
 
 
 def update_balance(usr):
@@ -82,10 +78,10 @@ def update_balance(usr):
     display(usr)
 
 
-
 print("\t\t\t\tWelcome to the Bank Portal!\n\t\t\t\t\tMain Menu")
 while True:
-    print("\n-----------------------------------------------------\nEnter:\n1. Create a new account\n2. Log in to an existing account\n3. Exit")
+    print("\n-----------------------------------------------------\nEnter:\n1. Create a new account\n2. Log in to an "
+          "existing account\n3. Exit")
     choice = input("Enter 1/2/3: ")
     if choice == "1":
         sign_up()
